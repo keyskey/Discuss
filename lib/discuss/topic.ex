@@ -4,6 +4,8 @@ defmodule Discuss.Topic do
 
   schema "topics" do
     field :title, :string
+
+    timestamps()
   end
 
   @doc false

@@ -4,7 +4,8 @@ defmodule Discuss.Repo.Migrations.CreateTopics do
   def change do
     create table(:topics) do
       add :title, :string
-    end
 
+      timestamps()
+    end
   end
 end
