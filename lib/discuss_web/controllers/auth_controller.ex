@@ -1,4 +1,7 @@
 defmodule DiscussWeb.AuthController do
+  @moduledoc """
+  Controller for sign in / sign out
+  """
   use DiscussWeb, :controller
   plug Ueberauth
   alias Discuss.User
@@ -12,10 +15,16 @@ defmodule DiscussWeb.AuthController do
                     provider: "google"}
     changeset = User.changeset(%User{}, user_params)
 
-    create(conn, changeset)
+    signin(conn, changeset)
   end
 
-  def create(conn, changeset) do
+  def signout(conn, _params) do
+    conn
+    |> configure_session(drop: true)   # Delete user_id from session
+    |> redirect(to: topic_path(conn, :index))
+  end
+
+  defp signin(conn, changeset) do
     case insert_or_update_user(changeset) do
       {:ok, user} ->
         conn
@@ -24,12 +33,12 @@ defmodule DiscussWeb.AuthController do
         |> redirect(to: topic_path(conn, :index))
       {:error, _reason} ->
         conn
-        |> put_flash(:error, "Error, failed to login")
+        |> put_flash(:error, "Error, failed to signing in")
         |> redirect(to: topic_path(conn, :index))
     end
   end
 
-  def insert_or_update_user(changeset) do
+  defp insert_or_update_user(changeset) do
     case Repo.get_by(User, email: changeset.changes.email) do
       nil -> Repo.insert(changeset)    # New user
       user -> {:ok, user}              # Already registered user
