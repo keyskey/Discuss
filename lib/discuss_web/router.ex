@@ -17,13 +17,14 @@ defmodule DiscussWeb.Router do
   scope "/", DiscussWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", TopicController, :index   # Break Restful convention! default: PageConroller for "/"
-    get "/topics/new", TopicController, :new
-    post "/topics", TopicController, :create
-    get "/topics/:id/edit", TopicController, :edit
-    put "/topics/:id", TopicController, :update
-    delete "/topics/:id", TopicController, :delete
-    #resources "/", TopicController     # This is also available because we follow the RESTful convention
+    #get "/", TopicController, :index   # Break Restful convention! default: PageConroller for "/"
+    #get "/topics/:id", TopicController, :show
+    #get "/topics/new", TopicController, :new
+    #post "/topics", TopicController, :create
+    #get "/topics/:id/edit", TopicController, :edit
+    #put "/topics/:id", TopicController, :update
+    #delete "/topics/:id", TopicController, :delete
+    resources "/", TopicController
   end
 
   scope "/auth", DiscussWeb do
