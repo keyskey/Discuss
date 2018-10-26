@@ -10,7 +10,7 @@ defmodule Discuss.User do
     field :last_name, :string
     field :provider, :string
     field :token, :string
-    has_many :topics, Discuss.Topic   # User has many ":topics". Important, should be plural!!
+    has_many :topics, Discuss.Topic
     has_many :comments, Discuss.Comment
 
     timestamps()

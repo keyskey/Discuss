@@ -4,7 +4,7 @@ defmodule Discuss.Comment do
 
   # Phoenix(Poison)はサーバーからフロントにデータを受け渡すとき必ずJSON形式でデータを送るが、
   # 以下の指定をしないとPoisonはcommentが持つ全てのカラムをJSONに変換しようとしてエラーになる
-  # ChannelにjoinするときはあくまでcontentしかJSONにする必要はない
+  # ChannelにjoinするときはあくまでcontentとuserのemailしかJSONにする必要はない
   @derive {Poison.Encoder, only: [:content, :user]}
 
   schema "comments" do
